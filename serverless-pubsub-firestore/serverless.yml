@@ -1,0 +1,37 @@
+service: name_of_service
+app: name_of_app
+tenant: name_of_tenant
+
+provider:
+  name: google
+  runtime: nodejs
+  project: project_name
+  # the path to the credentials file needs to be absolute
+  credentials: key_file_name.json
+
+plugins:
+  - serverless-google-cloudfunctions
+
+# needs more granular excluding in production as only the serverless provider npm
+# package should be excluded (and not the whole node_modules directory)
+
+
+package:
+  exclude:
+    - node_modules/**
+    - .gitignore
+    - .git/**
+
+functions:
+  first:
+    handler: pubSub
+    events:
+      - event:
+          eventType: providers/cloud.pubsub/eventTypes/topic.publish
+          resource: projects/project_name/topics/topic_name
+
+
+  # NOTE: the following uses an "event" event (pubSub event in this case).
+  # Please create the corresponding resources in the Google Cloud
+  # before deploying this service through Serverless
+
