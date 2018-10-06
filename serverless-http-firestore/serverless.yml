@@ -26,7 +26,7 @@ functions:
   first:
     handler: http
     events:
-      - http: "https://us-central1-pylon-powermon.cloudfunctions.net/http"
+      - http: link_from_emulator
       # to get the http, get the emulator, get the resource site and then deploy the function
 
   # NOTE: the following uses an "event" event (pubSub event in this case).
